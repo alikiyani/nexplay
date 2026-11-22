@@ -189,7 +189,7 @@ body{background:#0b0d10;font-family:'Vazirmatn','Montserrat',sans-serif;color:#f
 .bonus-stat-card{background:#090a0d;border:1px solid #1e293b;border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;text-align:right}
 .bonus-stat-card .label{font-size:11px;color:#94a3b8}
 .bonus-stat-card .val{font-size:13px;font-weight:800;color:#f1f5f9;direction:ltr;text-align:right}
-@media (max-width:600px){.top-header{padding:0 8px}.brand-text{display:none}.header-actions{gap:6px}.wallet-btn{padding:5px 8px;font-size:11px}}
+@media (max-width:600px){.top-header{padding:0 8px}.brand-text{display:none}.header-actions{gap:6px}.wallet-btn{padding:5px 8px;font-size:11px}#admin-panel{padding:calc(env(safe-area-inset-top) + 10px) 10px calc(env(safe-area-inset-bottom) + 10px);align-items:flex-start;justify-content:center}#admin-panel.show{align-items:flex-start;justify-content:center}.admin-content{width:100%;max-width:100%;margin:0 auto;padding:14px;border-radius:14px;max-height:none}.admin-section{padding:11px}.admin-section input,.admin-section button{min-width:0}.admin-section-title{flex-wrap:wrap}.admin-stat-row{gap:10px;align-items:flex-start}.admin-stat-row b{max-width:58%;overflow-wrap:anywhere;text-align:left}#adminBonusPercent{width:105px!important}.admin-input{font-size:14px}}
 </style>
 </head>
 <body>
@@ -285,7 +285,7 @@ localStorage.setItem('cr_users',JSON.stringify(users));
 let selectedBetWallet='cash',roundBetWallet='cash';
 let deposits=JSON.parse(localStorage.getItem('cr_deposits')||'[]');
 let activeBonusCode=JSON.parse(localStorage.getItem('cr_bonus')||'null');
-let siteBalance=parseFloat(localStorage.getItem('cr_site_bal')||'300000000');
+const _savedSiteBalance=Number(localStorage.getItem('cr_site_bal')); let siteBalance=Number.isFinite(_savedSiteBalance)&&_savedSiteBalance>=0?_savedSiteBalance:300000000; if(!Number.isFinite(_savedSiteBalance)||_savedSiteBalance<0)localStorage.setItem('cr_site_bal',String(siteBalance));
 const MAX_LIABILITY_RATIO=3;
 let defenseModeActive=false;
 let isPlaying=false,currentStep=0,currentMultiplier=1.00,selectedDiff='easy',roundTraps=[],isSoundOn=true,serverSeed="",serverHash="",currentBetInToman=10000;
@@ -432,17 +432,43 @@ function closeReferralModal(){const m=document.getElementById('referralModal');i
 function copyReferralLink(){const li=document.getElementById('refLinkInput');if(!li)return;li.select();li.setSelectionRange(0,99999);navigator.clipboard.writeText(li.value).then(()=>alert("✅ لینک کپی شد!")).catch(()=>alert("لینک: "+li.value))}
 async function postReferralCampaignToTelegram(){if(!confirm("ارسال پیام چالش دعوت به کانال؟"))return;try{const t='👥🔥 <b>چالش دعوت NexPlay!</b>\n💰 <b>با هر عضو جدید، ۱ دلار بونوس!</b>\n🎯 مراحل:\n۱. وارد ربات شوید: @Nexplayappbot\n۲. دکمه 👥 را بزنید و لینک را بردارید.\n۳. با اولین واریز دوستتان پاداش بگیرید!\n🎮 ورود: @Nexplayappbot\n📢 کانال: @NexPlayClub';const r=await callServer('postChannelMsg',{text:t});if(r.ok)alert("📢 پیام در کانال منتشر شد!");else alert("خطا: "+(r.error||'نامشخص'))}catch(e){alert("خطا: "+e.message)}}
 
+function escapeBonusText(value){return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+async function createBonus(){
+    if(!window.currentUserIsAdmin){alert('دسترسی مدیریت مجاز نیست.');return}
+    const codeEl=document.getElementById('adminBonusCode');
+    const pctEl=document.getElementById('adminBonusPercent');
+    const amtEl=document.getElementById('adminBonusAmount');
+    const code=(codeEl?.value||'').trim().toUpperCase();
+    const pct=Number(pctEl?.value);
+    const amountText=(amtEl?.value||'').trim();
+    const amount=amountText===''?0:Number(amountText);
+    if(!/^[A-Z0-9_-]{3,32}$/.test(code)){alert('کد باید ۳ تا ۳۲ حرف انگلیسی، عدد، _ یا - باشد.');return}
+    if(!Number.isFinite(pct)||pct<1||pct>1000){alert('درصد بونوس را بین ۱ تا ۱۰۰۰ وارد کنید.');return}
+    if(!Number.isFinite(amount)||amount<0){alert('مبلغ هدیه معتبر نیست.');return}
+    activeBonusCode={code:code,pct:pct,amount:amount,createdAt:Date.now()};
+    localStorage.setItem('cr_bonus',JSON.stringify(activeBonusCode));
+    updateAdminStats();
+    if(document.getElementById('postBonusToTelegram')?.checked){
+        const giftLine=amount>0?'\n🎁 مبلغ هدیه: <b>'+Math.round(amount).toLocaleString('en-US')+' تومان</b>':'';
+        try{
+            const result=await callServer('postChannelMsg',{text:'🎉 <b>بونوس NexPlay فعال شد</b>\nکد: <code>'+escapeBonusText(code)+'</code>\nدرصد بونوس: <b>'+pct+'%</b>'+giftLine+'\nبرای استفاده، کد را در بازی وارد کنید.'});
+            if(result&&result.ok){alert('کد بونوس در این مرورگر فعال شد و پیام کانال تأیید شد.')}
+            else{alert('کد بونوس در این مرورگر فعال شد؛ اما پیام کانال تأیید نشد. اتصال ربات را بررسی کنید.')}
+        }catch(err){alert('کد بونوس در این مرورگر فعال شد؛ اما ارسال پیام کانال به علت خطای اتصال تأیید نشد.')}
+    }else{alert('کد بونوس در این مرورگر فعال شد. توجه: این تنظیم هنوز بین کاربران همگام نیست.')}
+}
+function deactivateBonus(){
+    if(!window.currentUserIsAdmin){alert('دسترسی مدیریت مجاز نیست.');return}
+    activeBonusCode=null;
+    localStorage.removeItem('cr_bonus');
+    updateAdminStats();
+    alert('کد بونوس در این مرورگر غیرفعال شد.');
+}
+
 function openAdmin(){
-    if(!window.currentUserIsAdmin){
-        const pass = prompt("🔒 کد ورود به پنل مدیریت را وارد کنید:");
-        if(pass === 'NexPlay2026!' || pass === '123456'){
-            window.currentUserIsAdmin = true;
-            localStorage.setItem('cr_admin_secret', 'NexPlay2026!');
-            revealAdminUI();
-        } else {
-            if(pass) alert("❌ کد امنیتی نادرست است!");
-            return;
-        }
+    if(!window.currentUserIsAdmin||!ADMIN_TELEGRAM_IDS.includes(Number(String(currentUserId).replace('tg_','')))){
+        alert('پنل مدیریت فقط از حساب تلگرام مدیر باز می‌شود.');
+        return;
     }
     document.getElementById('admin-panel').classList.add('show');
     loadAdminUsers();
@@ -450,7 +476,7 @@ function openAdmin(){
     updateAdminStats();
 }
 function closeAdmin(){document.getElementById('admin-panel').classList.remove('show')}
-function updateAdminStats(){document.getElementById('adminSiteBalDisplay').innerText=Math.round(siteBalance).toLocaleString('en-US')+" تومان";document.getElementById('adminSiteRiskDisplay').innerText=Math.round(siteBalance*MAX_LIABILITY_RATIO).toLocaleString('en-US')+" تومان";document.getElementById('adminRateDisplay').innerText=USD_TO_TOMAN.toLocaleString('en-US')+" تومان";const sb=document.getElementById('adminDefenseStatusBadge');if(defenseModeActive){sb.innerText="فعال (محافظت)";sb.style.color="#ef4444"}else{sb.innerText="غیرفعال (عادی)";sb.style.color="#4ade80"}const bl=document.getElementById('activeBonusLabel');if(activeBonusCode){bl.innerText='کد: '+activeBonusCode.code+' ('+activeBonusCode.pct+'%)';bl.style.color='#4ade80'}else{bl.innerText="کد فعال: ندارد";bl.style.color='#94a3b8'}}
+function updateAdminStats(){if(!Number.isFinite(siteBalance)||siteBalance<0){siteBalance=300000000;localStorage.setItem('cr_site_bal',String(siteBalance))}document.getElementById('adminSiteBalDisplay').innerText=Math.round(siteBalance).toLocaleString('en-US')+" تومان";document.getElementById('adminSiteRiskDisplay').innerText=Math.round(siteBalance*MAX_LIABILITY_RATIO).toLocaleString('en-US')+" تومان";document.getElementById('adminRateDisplay').innerText=USD_TO_TOMAN.toLocaleString('en-US')+" تومان";const sb=document.getElementById('adminDefenseStatusBadge');if(defenseModeActive){sb.innerText="فعال (محافظت)";sb.style.color="#ef4444"}else{sb.innerText="غیرفعال (عادی)";sb.style.color="#4ade80"}const bl=document.getElementById('activeBonusLabel');if(activeBonusCode){bl.innerText='کد: '+activeBonusCode.code+' ('+activeBonusCode.pct+'%)';bl.style.color='#4ade80'}else{bl.innerText="کد فعال: ندارد";bl.style.color='#94a3b8'}}
 function loadAdminDeposits(){const l=document.getElementById('adminDepositList');const b=document.getElementById('adminPendingCount');const p=deposits.filter(d=>d.status==='pending');if(b)b.innerText=p.length;if(p.length===0){l.innerHTML='<div style="color:#64748b;font-size:12px;padding:10px;text-align:center">واریزی در انتظار نیست.</div>';return}l.innerHTML='';p.forEach(d=>{const i=document.createElement('div');i.className='list-item';i.innerHTML='<div><b>'+d.id+'</b> | <span style="color:#4ade80">'+Math.round(d.amount).toLocaleString()+' تومان</span><br><span style="color:#64748b;font-size:11px">کاربر: '+d.uid+' | ساعت: '+d.time+'</span></div><div style="display:flex;gap:6px"><button class="admin-btn admin-btn-primary" style="padding:4px 8px;font-size:11px" onclick="approveDep(\''+d.id+'\')">تأیید</button><button class="admin-btn admin-btn-danger" style="padding:4px 8px;font-size:11px" onclick="rejectDep(\''+d.id+'\')">رد</button></div>';l.appendChild(i)})}
 function approveDep(id){const idx=deposits.findIndex(d=>d.id===id);if(idx===-1)return;deposits[idx].status='approved';localStorage.setItem('cr_deposits',JSON.stringify(deposits));const d=deposits[idx];const uid=d.uid;if(!users[uid])users[uid]={bal:0,bonusBal:0,bonusWagerTarget:0,bonusWagerProgress:0,isBlocked:false,bypassWagering:false,referrals:[],depReferrals:[]};users[uid].bal=(users[uid].bal||0)+d.amount;if(d.bonusPct&&d.bonusPct>0){const ba=Math.round(d.amount*(d.bonusPct/100));users[uid].bonusBal=(users[uid].bonusBal||0)+ba;users[uid].bonusWagerTarget=(users[uid].bonusWagerTarget||0)+(ba*2);if(typeof users[uid].bonusWagerProgress==='undefined')users[uid].bonusWagerProgress=0}localStorage.setItem('cr_users',JSON.stringify(users));alert('واریز '+id+' تأیید شد.');loadAdminDeposits();updateBalanceUI();updateAdminStats()}
 function rejectDep(id){const idx=deposits.findIndex(d=>d.id===id);if(idx===-1)return;deposits[idx].status='rejected';localStorage.setItem('cr_deposits',JSON.stringify(deposits));alert('واریز '+id+' رد شد.');loadAdminDeposits()}
@@ -466,11 +492,8 @@ function checkUserBlocked(){const u=users[currentUserId];if(u&&u.isBlocked){cons
 function initTelegramAndAuth() {
     let ia = false;
     
-    // چک کردن کد ادمین مخفی در LocalStorage
-    if (localStorage.getItem('cr_admin_secret') === 'NexPlay2026!') {
-        ia = true;
-        window.currentUserIsAdmin = true;
-    }
+    // Admin button visibility is a UI convenience, not secure authorization.
+    localStorage.removeItem('cr_admin_secret');
 
     if (window.Telegram && window.Telegram.WebApp) {
         try {
@@ -529,31 +552,6 @@ function initTelegramAndAuth() {
 
     checkUserBlocked();
     
-    // فعال‌سازی ادمین با ۵ بار کلیک روی آیکون مرغ 🐤
-    let bc = 0; 
-    let bt = null;
-    const bi = document.querySelector('.brand-icon');
-    if (bi) {
-        bi.style.cursor = 'pointer';
-        bi.addEventListener('click', () => {
-            bc++;
-            clearTimeout(bt);
-            bt = setTimeout(() => { bc = 0; }, 2000);
-            
-            if (bc >= 5) {
-                bc = 0;
-                const secret = prompt("🔒 کد امنیتی ادمین را وارد کنید:");
-                if (secret === 'NexPlay2026!') {
-                    localStorage.setItem('cr_admin_secret', 'NexPlay2026!');
-                    revealAdminUI();
-                    openAdmin();
-                    alert("✅ حالت مدیریت فعال شد!");
-                } else if (secret) {
-                    alert("❌ کد اشتباه است!");
-                }
-            }
-        });
-    }
 
     if (ia) revealAdminUI();
 }

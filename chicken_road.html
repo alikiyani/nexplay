@@ -14,18 +14,18 @@
 body{background:#0b0d10;font-family:'Vazirmatn','Montserrat',sans-serif;color:#fff;width:100vw;height:100vh;height:100dvh;overflow:hidden;display:flex;justify-content:center;align-items:center}
 #game-container{width:100%;height:100%;max-width:1100px;background:#12141a;display:flex;flex-direction:column;position:relative;overflow:hidden}
         .top-header {
-            padding: 6px 10px;
-            padding-top: max(6px, env(safe-area-inset-top, 6px));
-            background: #171920;
-            border-bottom: 1px solid #222630;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 100;
-            flex-shrink: 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
+    padding: 6px 10px;
+    padding-top: max(64px, calc(env(safe-area-inset-top, 0px) + 56px));
+    background: #171920;
+    border-bottom: 1px solid #222630;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 100;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
         .header-main-row {
             display: flex;
             align-items: center;
@@ -213,7 +213,18 @@ body{background:#0b0d10;font-family:'Vazirmatn','Montserrat',sans-serif;color:#f
 @keyframes boomBurst{0%{transform:translate(-50%,-50%) scale(.2);opacity:1}50%{transform:translate(-50%,-50%) scale(1.6);opacity:1}100%{transform:translate(-50%,-50%) scale(2.2);opacity:0}}
 .shake-screen{animation:screenShake .4s cubic-bezier(.36,.07,.19,.97) both}
 @keyframes screenShake{10%,90%{transform:translate3d(-3px,0,0)}20%,80%{transform:translate3d(5px,0,0)}30%,50%,70%{transform:translate3d(-6px,0,0)}40%,60%{transform:translate3d(6px,0,0)}}
-.controls-panel{background:#171920;padding:10px 14px;border-top:2px solid #222630;z-index:100;display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.controls-panel {
+    background: #171920;
+    padding: 6px 12px;
+    padding-bottom: max(44px, calc(env(safe-area-inset-bottom, 0px) + 36px));
+    border-top: 2px solid #222630;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
 .stats-bar{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#94a3b8;padding:0 4px}
 .stats-bar .stat-highlight{color:#4ade80;font-weight:700;font-family:'Montserrat',sans-serif}
 .controls-top-row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
@@ -229,7 +240,7 @@ body{background:#0b0d10;font-family:'Vazirmatn','Montserrat',sans-serif;color:#f
 .diff-btn.active{background:#3b82f6;color:#fff;box-shadow:0 2px 6px rgba(59,130,246,.4)}
 .diff-btn[data-diff="hard"].active{background:#f97316;box-shadow:0 2px 6px rgba(249,115,22,.4)}
 .diff-btn[data-diff="hardcore"].active{background:#ef4444;box-shadow:0 2px 6px rgba(239,68,68,.4)}
-.actions-row{display:flex;gap:10px;height:52px}
+.actions-row{display:flex;gap:8px;height:48px}
 .btn-go{flex:1;background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%);border:none;border-radius:12px;color:#fff;font-weight:900;font-size:18px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 0 #15803d,0 6px 15px rgba(34,197,94,.35);transition:transform .1s,box-shadow .1s;line-height:1.1}
 .btn-go:active{transform:translateY(3px);box-shadow:0 1px 0 #15803d}
 .btn-go .btn-sub{font-size:11px;font-weight:600;opacity:.9}
@@ -299,7 +310,11 @@ body{background:#0b0d10;font-family:'Vazirmatn','Montserrat',sans-serif;color:#f
 .bonus-stat-card{background:#090a0d;border:1px solid #1e293b;border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;text-align:right}
 .bonus-stat-card .label{font-size:11px;color:#94a3b8}
 .bonus-stat-card .val{font-size:13px;font-weight:800;color:#f1f5f9;direction:ltr;text-align:right}
-@media (max-width:600px){.top-header{padding-top: max(6px, env(safe-area-inset-top, 6px));)}.header-main-row{padding:0 8px;gap:6px}.header-toolbar-row{padding:0 8px}.brand-text{display:none}.wallet-btn{padding:5px 8px;font-size:11px}#admin-panel{padding:calc(env(safe-area-inset-top) + 10px) 10px calc(env(safe-area-inset-bottom) + 10px);align-items:flex-start;justify-content:center}#admin-panel.show{align-items:flex-start;justify-content:center}.admin-content{width:100%;max-width:100%;margin:0 auto;padding:14px;border-radius:14px;max-height:none}.admin-section{padding:11px}.admin-section input,.admin-section button{min-width:0}.admin-section-title{flex-wrap:wrap}.admin-stat-row{gap:10px;align-items:flex-start}.admin-stat-row b{max-width:58%;overflow-wrap:anywhere;text-align:left}#adminBonusPercent{width:105px!important}.admin-input{font-size:14px}}
+@media (max-width: 600px) {
+    .top-header {
+        padding: 6px 8px;
+        padding-top: max(64px, calc(env(safe-area-inset-top, 0px) + 56px));
+    }.header-main-row{padding:0 8px;gap:6px}.header-toolbar-row{padding:0 8px}.brand-text{display:none}.wallet-btn{padding:5px 8px;font-size:11px}#admin-panel{padding:calc(env(safe-area-inset-top) + 10px) 10px calc(env(safe-area-inset-bottom) + 10px);align-items:flex-start;justify-content:center}#admin-panel.show{align-items:flex-start;justify-content:center}.admin-content{width:100%;max-width:100%;margin:0 auto;padding:14px;border-radius:14px;max-height:none}.admin-section{padding:11px}.admin-section input,.admin-section button{min-width:0}.admin-section-title{flex-wrap:wrap}.admin-stat-row{gap:10px;align-items:flex-start}.admin-stat-row b{max-width:58%;overflow-wrap:anywhere;text-align:left}#adminBonusPercent{width:105px!important}.admin-input{font-size:14px}}
 </style>
 </head>
 <body>
@@ -369,7 +384,91 @@ body{background:#0b0d10;font-family:'Vazirmatn','Montserrat',sans-serif;color:#f
 </div>
 </div>
 <div id="result-modal"><div class="modal-card"><h2 id="modalTitle" class="win-title">🎉 برنده شدی!</h2><div class="multiplier-stat" id="modalMultiplier">2.33x</div><p id="modalDesc">مبلغ با موفقیت به موجودی شما اضافه شد.</p><button class="modal-btn" onclick="closeModal()">راند بعدی</button><button class="modal-btn" style="margin-top:8px;background:#16a34a;box-shadow:0 4px 0 #15803d" onclick="closeModal();openWalletModal('deposit')">⚡ شارژ حساب</button></div></div>
-<div id="wallet-modal"><div class="wallet-card"><div class="wallet-tabs"><button class="wallet-tab active" id="tabDeposit" onclick="switchWalletTab('deposit')">➕ واریز</button><button class="wallet-tab" id="tabWithdraw" onclick="switchWalletTab('withdraw')">💳 برداشت</button><button class="wallet-tab" id="tabBonus" onclick="switchWalletTab('bonus')">🎁 بونوس</button><span class="close-x" onclick="closeWalletModal()">✖</span></div><div id="depositView" class="wallet-view active"><div class="wallet-desc">مبلغ مورد نظر برای شارژ حساب را انتخاب یا وارد کنید:</div><div class="quick-amounts" id="quickDepositAmounts"><button class="quick-chip" onclick="setDepositAmount(50000)">+50,000</button><button class="quick-chip" onclick="setDepositAmount(100000)">+100,000</button><button class="quick-chip" onclick="setDepositAmount(500000)">+500,000</button><button class="quick-chip" onclick="setDepositAmount(1000000)">+1M</button></div><div class="wallet-input-group"><label id="depositInputLabel">مبلغ واریزی (تومان):</label><div class="input-with-symbol"><span id="depositCurrencySymbol">تومان</span><input type="number" id="depositInput" min="1000" step="10000" value="100000"></div></div><div class="wallet-input-group"><label>کد هدیه / بونوس (اختیاری):</label><div style="display:flex;gap:6px"><input type="text" id="bonusCodeInput" placeholder="کد بونوس..." style="flex:1;text-transform:uppercase;letter-spacing:1px"><button class="quick-chip" style="min-width:70px;padding:8px" onclick="applyPromoBonus()">اعمال</button></div></div><button class="modal-btn deposit-action-btn" onclick="submitDeposit()">⚡ ثبت درخواست واریز</button><div class="crypto-dep-box"><span class="dep-network-badge">شبکه: TRC20 (Tether USDT)</span><div class="dep-address" id="depositWalletAddress" onclick="copyAddress()" title="کلیک برای کپی آدرس">TMXC4Q2bsX6XiDXwsmEeocVuWB6doQX2kc</div><div class="dep-hint">👆 برای کپی روی آدرس تتر ضربه بزنید.</div><button class="quick-chip" style="width:100%;padding:9px;background:#1e293b;border-color:#38bdf8;color:#38bdf8" onclick="registerDeposit()">📝 ثبت تراکنش واریز جهت تأیید ادمین</button></div></div><div id="withdrawView" class="wallet-view"><div class="withdraw-info-card"><div class="withdraw-row"><span>💵 موجودی قابل برداشت (حساب اصلی):</span><strong id="withdrawAvailDisplay" style="color:#4ade80">270,000 تومان</strong></div><div class="withdraw-row" style="margin-top:6px"><span>🎁 موجودی کیف پول بونوس:</span><strong id="withdrawBonusDisplay" style="color:#facc15">0 تومان</strong></div></div><div id="withdrawBonusNotice" class="bonus-wager-alert" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-weight:bold;color:#facc15">🔒 شرط گردش دوبرابری بونوس:</span><span id="withdrawWagerPct" style="color:#fef08a;font-weight:bold">0%</span></div><div class="wager-bar-bg" style="height:7px"><div id="withdrawWagerBar" class="wager-bar-fill" style="width:0"></div></div><div id="withdrawWagerDetail" style="font-size:11px;color:#cbd5e1;margin-top:5px;line-height:1.4">موجودی بونوس پس از ۲ برابر گردش در بازی، به حساب اصلی منتقل و قابل برداشت خواهد شد.</div></div><div class="quick-amounts"><button class="quick-chip" onclick="setWithdrawPercent(0.25)">25%</button><button class="quick-chip" onclick="setWithdrawPercent(0.50)">50%</button><button class="quick-chip" onclick="setWithdrawPercent(0.75)">75%</button><button class="quick-chip" onclick="setWithdrawPercent(1.00)">حداکثر</button></div><div class="wallet-input-group"><label id="withdrawInputLabel">مبلغ برداشت (تومان):</label><div class="input-with-symbol"><span id="withdrawCurrencySymbol">تومان</span><input type="number" id="withdrawInput" min="1000" step="10000" value="50000"></div></div><div class="wallet-input-group"><label>شماره کارت / آدرس ولت مقصد:</label><input type="text" id="withdrawAddressInput" placeholder="شماره شبا / کارت یا آدرس ولت TRC20..." style="text-align:left;direction:ltr"></div><button class="modal-btn withdraw-action-btn" onclick="submitWithdraw()">ثبت درخواست برداشت</button></div><div id="bonusView" class="wallet-view"><div class="wallet-desc">🎁 <strong>قانون بونوس و شرط گردش دوبرابری:</strong><br>مبالغ هدیه در این کیف پول نگهداری می‌شوند. برای تبدیل بونوس به پول نقد و امکان برداشت، کافیست در بازی «حساب بونوس» را انتخاب و به اندازه <b>۲ برابر مبلغ بونوس</b> گردش مالی ثبت کنید. پس از تکمیل ۱۰۰٪، کل موجودی به حساب اصلی واریز می‌شود.</div><div class="bonus-info-stat-grid"><div class="bonus-stat-card"><span class="label">🎁 موجودی بونوس:</span><span class="val" id="bonusTabBalanceDisplay" style="color:#facc15">0 تومان</span></div><div class="bonus-stat-card"><span class="label">🎯 هدف گردش ۲ برابری:</span><span class="val" id="bonusTabTargetDisplay" style="color:#38bdf8">0 تومان</span></div><div class="bonus-stat-card"><span class="label">🎮 گردش انجام‌شده:</span><span class="val" id="bonusTabProgressDisplay" style="color:#4ade80">0 تومان</span></div><div class="bonus-stat-card"><span class="label">📊 وضعیت تکمیل:</span><span class="val" id="bonusTabWagerPct" style="color:#e2e8f0">0%</span></div></div><div style="margin:8px 0 14px 0"><div class="wager-bar-bg" style="height:9px"><div id="bonusTabWagerBar" class="wager-bar-fill" style="width:0"></div></div></div><div class="wallet-input-group"><label>کد تخفیف یا هدیه جدید دارید؟</label><div style="display:flex;gap:6px"><input type="text" id="bonusTabCodeInput" placeholder="کد بونوس (مثال: NEXPLAY50)..." style="flex:1;text-transform:uppercase;letter-spacing:1px"><button class="quick-chip" style="min-width:70px;padding:8px" onclick="applyPromoBonus('bonus')">اعمال</button></div></div><button class="modal-btn deposit-action-btn" style="background:#0284c7;border-color:#38bdf8;margin-top:8px" onclick="switchWalletTab('deposit')">➕ شارژ حساب جهت دریافت بونوس واریزی</button></div><div id="walletMessage" class="wallet-msg"></div></div></div>
+<div id="wallet-modal"><div class="wallet-card"><div class="wallet-tabs"><button class="wallet-tab active" id="tabDeposit" onclick="switchWalletTab('deposit')">➕ واریز</button><button class="wallet-tab" id="tabWithdraw" onclick="switchWalletTab('withdraw')">💳 برداشت</button><button class="wallet-tab" id="tabBonus" onclick="switchWalletTab('bonus')">🎁 بونوس</button><span class="close-x" onclick="closeWalletModal()">✖</span></div><div id="depositView" class="wallet-view active">
+<div class="wallet-desc" style="color:#38bdf8;font-weight:700;font-size:12px;margin-bottom:8px">
+⚡ واریز و شارژ حساب فقط با ارز دیجیتال تتر (USDT - شبکه TRC20)
+</div>
+<div class="crypto-dep-box">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+<span class="dep-network-badge">شبکه اختصاصی: TRC20 (Tether USDT)</span>
+<span style="font-size:11px;color:#a855f7;font-weight:bold">⚡ کارمزد فوق‌العاده کم</span>
+</div>
+<div class="dep-address" id="depositWalletAddress" onclick="copyAddress()" title="کلیک برای کپی آدرس ولت">TMXC4Q2bsX6XiDXwsmEeocVuWB6doQX2kc</div>
+<div class="dep-hint">👆 برای کپی روی آدرس تتر ضربه بزنید.</div>
+</div>
+
+<div style="font-size:12px;color:#cbd5e1;margin:10px 0 6px">انتخاب سریع مبلغ تتر:</div>
+<div class="quick-amounts" id="quickDepositAmounts">
+<button class="quick-chip" onclick="setCryptoDeposit(5)">5 USDT</button>
+<button class="quick-chip" onclick="setCryptoDeposit(10)">10 USDT</button>
+<button class="quick-chip" onclick="setCryptoDeposit(25)">25 USDT</button>
+<button class="quick-chip" onclick="setCryptoDeposit(50)">50 USDT</button>
+<button class="quick-chip" onclick="setCryptoDeposit(100)">100 USDT</button>
+</div>
+
+<div class="wallet-input-group" style="margin-top:10px">
+<label id="depositInputLabel">مبلغ واریزی (USDT):</label>
+<div class="input-with-symbol">
+<span id="depositCurrencySymbol">USDT</span>
+<input type="number" id="depositInput" min="1" step="1" value="10" oninput="updateCryptoDepositPreview()">
+</div>
+<div id="cryptoDepositEq" style="font-size:11px;color:#4ade80;margin-top:4px">معادل تومانی در حساب: <b>1,200,000</b> تومان (نرخ تتر: 120,000)</div>
+</div>
+
+<div class="wallet-input-group">
+<label>کد پیگیری یا هش تراکنش ولت (TXID - اختیاری):</label>
+<input type="text" id="depositTxidInput" placeholder="TXID تراکنش تتر پس از انتقال از تراست‌ولت یا صرافی..." style="text-align:left;direction:ltr">
+</div>
+
+<div class="wallet-input-group">
+<label>کد هدیه / بونوس (اختیاری):</label>
+<div style="display:flex;gap:6px">
+<input type="text" id="bonusCodeInput" placeholder="کد بونوس..." style="flex:1;text-transform:uppercase;letter-spacing:1px">
+<button class="quick-chip" style="min-width:70px;padding:8px" onclick="applyPromoBonus()">اعمال</button>
+</div>
+</div>
+
+<button class="modal-btn deposit-action-btn" onclick="submitDepositCrypto()">⚡ ثبت تراکنش واریز تتر جهت تأیید ادمین</button>
+</div><div id="withdrawView" class="wallet-view">
+<div class="wallet-desc" style="color:#eab308;font-weight:700;font-size:12px;margin-bottom:8px">
+💳 برداشت سود فقط به آدرس کیف پول تتر (USDT - شبکه TRC20) انجام می‌شود.
+</div>
+<div class="withdraw-info-card">
+<div class="withdraw-row"><span>💵 موجودی قابل برداشت (حساب اصلی):</span><strong id="withdrawAvailDisplay" style="color:#4ade80">270,000 تومان</strong></div>
+<div class="withdraw-row" style="margin-top:6px"><span>🎁 موجودی کیف پول بونوس:</span><strong id="withdrawBonusDisplay" style="color:#facc15">0 تومان</strong></div>
+</div>
+<div id="withdrawBonusNotice" class="bonus-wager-alert" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+<span style="font-weight:bold;color:#facc15">🔒 شرط گردش دوبرابری بونوس:</span>
+<span id="withdrawWagerPct" style="color:#fef08a;font-weight:bold">0%</span>
+</div>
+<div class="wager-bar-bg" style="height:7px"><div id="withdrawWagerBar" class="wager-bar-fill" style="width:0"></div></div>
+<div id="withdrawWagerDetail" style="font-size:11px;color:#cbd5e1;margin-top:5px;line-height:1.4">موجودی بونوس پس از ۲ برابر گردش بردهای شما در بازی، به حساب اصلی منتقل و قابل برداشت خواهد شد.</div>
+</div>
+
+<div class="quick-amounts">
+<button class="quick-chip" onclick="setWithdrawPercent(0.25)">25%</button>
+<button class="quick-chip" onclick="setWithdrawPercent(0.50)">50%</button>
+<button class="quick-chip" onclick="setWithdrawPercent(0.75)">75%</button>
+<button class="quick-chip" onclick="setWithdrawPercent(1.00)">100% (کل موجودی)</button>
+</div>
+
+<div class="wallet-input-group">
+<label id="withdrawInputLabel">مبلغ برداشت (USDT / تومان):</label>
+<div class="input-with-symbol">
+<span id="withdrawCurrencySymbol">USDT</span>
+<input type="number" id="withdrawInput" min="1" step="1" value="10" oninput="updateWithdrawEq()">
+</div>
+<div id="withdrawEqDisplay" style="font-size:11px;color:#4ade80;margin-top:4px">معادل: <b>1,200,000</b> تومان</div>
+</div>
+
+<div class="wallet-input-group">
+<label>آدرس کیف پول تتر مقصد (USDT - TRC20):</label>
+<input type="text" id="withdrawAddressInput" placeholder="آدرس ولت تتر TRC20 خود را وارد کنید (شروع با T)..." style="text-align:left;direction:ltr">
+</div>
+
+<button class="modal-btn withdraw-action-btn" onclick="submitWithdrawCrypto()">💳 ثبت درخواست تسویه و برداشت تتر</button>
+</div><div id="bonusView" class="wallet-view"><div class="wallet-desc">🎁 <strong>قانون بونوس و شرط گردش دوبرابری:</strong><br>مبالغ هدیه در این کیف پول نگهداری می‌شوند. برای تبدیل بونوس به پول نقد و امکان برداشت، کافیست در بازی «حساب بونوس» را انتخاب و به اندازه <b>۲ برابر مبلغ بونوس</b> گردش مالی ثبت کنید. پس از تکمیل ۱۰۰٪، کل موجودی به حساب اصلی واریز می‌شود.</div><div class="bonus-info-stat-grid"><div class="bonus-stat-card"><span class="label">🎁 موجودی بونوس:</span><span class="val" id="bonusTabBalanceDisplay" style="color:#facc15">0 تومان</span></div><div class="bonus-stat-card"><span class="label">🎯 هدف گردش ۲ برابری:</span><span class="val" id="bonusTabTargetDisplay" style="color:#38bdf8">0 تومان</span></div><div class="bonus-stat-card"><span class="label">🎮 گردش انجام‌شده:</span><span class="val" id="bonusTabProgressDisplay" style="color:#4ade80">0 تومان</span></div><div class="bonus-stat-card"><span class="label">📊 وضعیت تکمیل:</span><span class="val" id="bonusTabWagerPct" style="color:#e2e8f0">0%</span></div></div><div style="margin:8px 0 14px 0"><div class="wager-bar-bg" style="height:9px"><div id="bonusTabWagerBar" class="wager-bar-fill" style="width:0"></div></div></div><div class="wallet-input-group"><label>کد تخفیف یا هدیه جدید دارید؟</label><div style="display:flex;gap:6px"><input type="text" id="bonusTabCodeInput" placeholder="کد بونوس (مثال: NEXPLAY50)..." style="flex:1;text-transform:uppercase;letter-spacing:1px"><button class="quick-chip" style="min-width:70px;padding:8px" onclick="applyPromoBonus('bonus')">اعمال</button></div></div><button class="modal-btn deposit-action-btn" style="background:#0284c7;border-color:#38bdf8;margin-top:8px" onclick="switchWalletTab('deposit')">➕ شارژ حساب جهت دریافت بونوس واریزی</button></div><div id="walletMessage" class="wallet-msg"></div></div></div>
 <div id="fair-modal"><div class="fair-card"><h3><span>اطلاعات نسخه آزمایشی</span><span style="cursor:pointer" onclick="closeFairModal()">✖</span></h3><p>این نسخه یک بازی آزمایشی محلی است، به سایت شرط‌بندی یا الگوریتم رسمی متصل نیست و نتیجه‌ها تضمین یا برنامه‌ریزی نشده‌اند.</p><div style="margin-top:10px;font-weight:bold">شناسه نمایشی دور:</div><div class="fair-field" id="fairHashDisplay">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div><div style="font-weight:bold">اطلاعات دور:</div><div class="fair-field" id="fairSeedDisplay">در حین بازی برای جلوگیری از تقلب مخفی است.</div><button class="modal-btn" onclick="closeFairModal()">بستن</button></div></div>
 <div id="admin-panel"><div class="admin-content"><div class="admin-header"><h3 style="color:#4ade80;font-size:18px;font-weight:900">⚙️ پنل مدیریت کازینو</h3><span class="close-x" onclick="closeAdmin()">✖</span></div><div class="admin-section"><div class="admin-section-title"><span>👥 مدیریت کاربران</span><span class="admin-badge" id="adminUsersCount">0 کاربر</span></div><div style="display:flex;gap:8px;margin-bottom:10px"><input type="text" class="admin-input" id="adminUserSearchInput" placeholder="🔍 جستجو بر اساس آیدی..." style="margin-bottom:0;flex:1" oninput="filterAdminUsers()"><button class="admin-btn admin-btn-secondary" onclick="loadAdminUsers()">🔄</button></div><div id="adminUsersList" style="max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:2px"><div style="color:#64748b;font-size:12px;padding:12px;text-align:center">در حال بارگذاری...</div></div></div>
         <!-- بخش حسابداری و سود سایت -->
@@ -449,6 +548,8 @@ if(!users[currentUserId])users[currentUserId]={bal:0,bonusBal:0,bonusWagerTarget
 localStorage.setItem('cr_users',JSON.stringify(users));
 let selectedBetWallet='cash',roundBetWallet='cash';
 let deposits=JSON.parse(localStorage.getItem('cr_deposits')||'[]');
+let withdraws=JSON.parse(localStorage.getItem('cr_withdraws')||'[]');
+let houseStats=JSON.parse(localStorage.getItem('cr_house_stats')||'{"totalPlayerLosses":0,"totalPlayerWinsProfit":0,"totalDepositsApproved":0,"totalWithdrawalsPaid":0}');
 let activeBonusCode=JSON.parse(localStorage.getItem('cr_bonus')||'null');
 const _savedSiteBalance=Number(localStorage.getItem('cr_site_bal')); let siteBalance=Number.isFinite(_savedSiteBalance)&&_savedSiteBalance>=0?_savedSiteBalance:300000000; if(!Number.isFinite(_savedSiteBalance)||_savedSiteBalance<0)localStorage.setItem('cr_site_bal',String(siteBalance));
 const VAULT_RISK_LIMIT_PERCENT=0.25; // حداکثر ریسک مجاز در هر دست: ۲۵٪ کل موجودی صندوق
@@ -526,13 +627,13 @@ function updateStatsBar(){roundStatusLabel.innerText=isPlaying?"در حال با
 function handleGoClick(){if(!isPlaying)startNewRound();else executeStep(currentStep+1)}
 function startNewRound(){const bt=getBetInToman();const u=users[currentUserId];if(isNaN(bt)||bt<=0){alert("مبلغ معتبر وارد کنید!");return}if(selectedBetWallet==='bonus'){const bb=u.bonusBal||0;if(bb<=0){openWalletModal('bonus');showWalletMessage("موجودی بونوس صفر است!","error");return}if(bt>bb){openWalletModal('bonus');showWalletMessage("موجودی بونوس کافی نیست!","error");return}u.bonusBal-=bt;roundBetWallet='bonus';}else{if(bt>u.bal){openWalletModal('deposit');showWalletMessage("موجودی اصلی کافی نیست!","error");return}u.bal-=bt;roundBetWallet='cash'}localStorage.setItem('cr_users',JSON.stringify(users));currentBetInToman=bt;updateBalanceUI();isPlaying=true;currentStep=0;currentMultiplier=1.00;defenseModeActive=false;const ds=DIFFICULTY_DATA[selectedDiff].steps;const pm=currentBetInToman*(MULTIPLIERS[selectedDiff][ds-1]-1);const maxVaultRisk=siteBalance*VAULT_RISK_LIMIT_PERCENT;if(pm>maxVaultRisk)defenseModeActive=true;chickenSprite.innerHTML=CHICKEN_ALIVE_SVG;chickenBadge.innerText=isPlaying?'1.00x':'آماده حرکت 🚀';chickenBadge.style.background='#3b82f6';chicken.classList.remove('shake-screen');prepareRoundRNG();updateStatsBar();renderRoad();btnGoTitle.innerText="قدم بعدی";btnGoSub.innerText="حرکت به جلو";btnGo.style.flex="1";btnCashout.style.display="flex";updateCashoutDisplay();highlightNextLane();updateStatsBar()}
 function executeStep(ts){if(!isPlaying||ts!==currentStep+1)return;const d=DIFFICULTY_DATA[selectedDiff];if(ts>d.steps){handleCashOut(true);return}chicken.classList.add('hopping');playSound('hop');setTimeout(()=>chicken.classList.remove('hopping'),380);currentStep=ts;positionChickenAt(ts);const it=defenseModeActive?true:roundTraps.includes(ts);if(it){triggerCarCrash(ts);return}currentMultiplier=getMultiplier(selectedDiff,ts);chickenBadge.innerText=formatMult(currentMultiplier);chickenBadge.style.background='#22c55e';const pm=document.getElementById('manhole-'+(ts-1));if(pm&&ts>0){pm.innerHTML='';const b=document.createElement('div');b.className='barricade-block';pm.appendChild(b);pm.classList.add('passed')}updateCashoutDisplay();highlightNextLane();updateStatsBar();if(currentStep===d.steps)setTimeout(()=>handleCashOut(true),500)}
-function triggerCarCrash(cs){isPlaying=false;playSound('crash');siteBalance+=currentBetInToman;localStorage.setItem('cr_site_bal',siteBalance.toString());const u=users[currentUserId];if(roundBetWallet==='bonus'&&(u.bonusBal||0)<=0){u.bonusBal=0;u.bonusWagerTarget=0;u.bonusWagerProgress=0;localStorage.setItem('cr_users',JSON.stringify(users));selectBetWallet('cash')}const tl=document.getElementById('lane-'+cs);const ci=Math.floor(Math.random()*CAR_MODELS.length);const cc=document.createElement('div');cc.innerHTML=CAR_MODELS[ci];const ce=cc.firstElementChild;ce.classList.add(Math.random()>0.5?'from-top':'from-bottom');tl.appendChild(ce);document.getElementById('game-stage').classList.add('shake-screen');setTimeout(()=>document.getElementById('game-stage').classList.remove('shake-screen'),400);const bo=document.createElement('div');bo.className='crash-boom';bo.innerText='💥';tl.appendChild(bo);setTimeout(()=>{chickenSprite.innerHTML=CHICKEN_DEAD_SVG;chickenBadge.innerText="CRASHED";chickenBadge.style.background='#ef4444'},150);revealAllTraps(cs);resetControlsAfterRound();setTimeout(()=>{modalTitle.className='lose-title';modalTitle.innerText="💀 تصادف کردی!";modalMultiplier.innerText="0.00x";modalMultiplier.style.color="#ef4444";const wt=roundBetWallet==='bonus'?'کیف پول بونوس':'حساب اصلی';let desc='ماشین زد! مبلغ '+formatMoney(currentBetInToman)+' از '+wt+' از دست رفت.';if(users[currentUserId].bal<1000&&(users[currentUserId].bonusBal||0)<1000)desc+='<br><span style="color:#facc15;font-weight:bold;display:block;margin-top:8px">موجودی تمام شد! واریز کنید.</span>';modalDesc.innerHTML=desc;resultModal.classList.add('show')},900)}
+function triggerCarCrash(cs){isPlaying=false;playSound('crash');siteBalance+=currentBetInToman;localStorage.setItem('cr_site_bal',siteBalance.toString());recordHouseGameStats('loss', currentBetInToman);const u=users[currentUserId];if(roundBetWallet==='bonus'&&(u.bonusBal||0)<=0){u.bonusBal=0;u.bonusWagerTarget=0;u.bonusWagerProgress=0;localStorage.setItem('cr_users',JSON.stringify(users));selectBetWallet('cash')}const tl=document.getElementById('lane-'+cs);const ci=Math.floor(Math.random()*CAR_MODELS.length);const cc=document.createElement('div');cc.innerHTML=CAR_MODELS[ci];const ce=cc.firstElementChild;ce.classList.add(Math.random()>0.5?'from-top':'from-bottom');tl.appendChild(ce);document.getElementById('game-stage').classList.add('shake-screen');setTimeout(()=>document.getElementById('game-stage').classList.remove('shake-screen'),400);const bo=document.createElement('div');bo.className='crash-boom';bo.innerText='💥';tl.appendChild(bo);setTimeout(()=>{chickenSprite.innerHTML=CHICKEN_DEAD_SVG;chickenBadge.innerText="CRASHED";chickenBadge.style.background='#ef4444'},150);revealAllTraps(cs);resetControlsAfterRound();setTimeout(()=>{modalTitle.className='lose-title';modalTitle.innerText="💀 تصادف کردی!";modalMultiplier.innerText="0.00x";modalMultiplier.style.color="#ef4444";const wt=roundBetWallet==='bonus'?'کیف پول بونوس':'حساب اصلی';let desc='ماشین زد! مبلغ '+formatMoney(currentBetInToman)+' از '+wt+' از دست رفت.';if(users[currentUserId].bal<1000&&(users[currentUserId].bonusBal||0)<1000)desc+='<br><span style="color:#facc15;font-weight:bold;display:block;margin-top:8px">موجودی تمام شد! واریز کنید.</span>';modalDesc.innerHTML=desc;resultModal.classList.add('show')},900)}
 function revealAllTraps(hs){roundTraps.forEach(ts=>{const m=document.getElementById('manhole-'+ts);if(m&&ts!==hs){m.classList.add('revealed-trap');m.innerHTML='<div style="font-size:32px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.8))">🚗</div><div style="font-size:9px;color:#fca5a5;font-weight:800;margin-top:2px">TRAP</div>'}});document.getElementById('fairSeedDisplay').innerText='تله‌ها: ['+roundTraps.sort((a,b)=>a-b).join(', ')+'] | Seed: '+serverSeed}
 function handleCashOut(mc=false){if(!isPlaying||currentStep===0)return;isPlaying=false;updateStatsBar();const wat=currentBetInToman*currentMultiplier;const pit=wat-currentBetInToman;const u=users[currentUserId];let bun="";if(roundBetWallet==='bonus'){u.bonusBal=(u.bonusBal||0)+wat;
-        const winProfit = wat - currentBetToman;
+        const winProfit = wat - currentBetInToman;
         if(winProfit > 0) {
             u.bonusWagerProgress = (u.bonusWagerProgress||0) + winProfit;
-        }const t=u.bonusWagerTarget||0;const p=u.bonusWagerProgress||0;if(t>0&&p>=t){const ua=u.bonusBal;u.bal=(u.bal||0)+ua;u.bonusBal=0;u.bonusWagerTarget=0;u.bonusWagerProgress=0;selectedBetWallet='cash';selectBetWallet('cash');bun='<div style="margin-top:10px;padding:8px 10px;background:rgba(34,197,94,.15);border:1.5px solid #22c55e;border-radius:10px;color:#4ade80;font-size:12px;font-weight:700">🎉 شرط گردش تکمیل شد! '+formatMoney(ua)+' به حساب اصلی منتقل شد!</div>'}}else{u.bal=(u.bal||0)+wat}localStorage.setItem('cr_users',JSON.stringify(users));siteBalance-=pit;if(siteBalance<0)siteBalance=0;localStorage.setItem('cr_site_bal',siteBalance.toString());updateBalanceUI();playSound('cashout');chickenBadge.innerText='WIN '+formatMult(currentMultiplier);chickenBadge.style.background='#eab308';revealAllTraps(-1);resetControlsAfterRound();setTimeout(()=>{modalTitle.className='win-title';modalTitle.innerText=mc?"🏆 فتح جاده!":"🎉 خروج موفق!";modalMultiplier.innerText=formatMult(currentMultiplier);modalMultiplier.style.color="#facc15";const wt=roundBetWallet==='bonus'?'کیف پول بونوس':'حساب اصلی';modalDesc.innerHTML='مبلغ <b style="color:#4ade80">'+formatMoney(wat)+'</b> به '+wt+' اضافه شد.'+bun;resultModal.classList.add('show')},300)}
+        }const t=u.bonusWagerTarget||0;const p=u.bonusWagerProgress||0;if(t>0&&p>=t){const ua=u.bonusBal;u.bal=(u.bal||0)+ua;u.bonusBal=0;u.bonusWagerTarget=0;u.bonusWagerProgress=0;selectedBetWallet='cash';selectBetWallet('cash');bun='<div style="margin-top:10px;padding:8px 10px;background:rgba(34,197,94,.15);border:1.5px solid #22c55e;border-radius:10px;color:#4ade80;font-size:12px;font-weight:700">🎉 شرط گردش تکمیل شد! '+formatMoney(ua)+' به حساب اصلی منتقل شد!</div>'}}else{u.bal=(u.bal||0)+wat}localStorage.setItem('cr_users',JSON.stringify(users));siteBalance-=pit;if(siteBalance<0)siteBalance=0;localStorage.setItem('cr_site_bal',siteBalance.toString());if(pit>0)recordHouseGameStats('win', pit);updateBalanceUI();playSound('cashout');chickenBadge.innerText='WIN '+formatMult(currentMultiplier);chickenBadge.style.background='#eab308';revealAllTraps(-1);resetControlsAfterRound();setTimeout(()=>{modalTitle.className='win-title';modalTitle.innerText=mc?"🏆 فتح جاده!":"🎉 خروج موفق!";modalMultiplier.innerText=formatMult(currentMultiplier);modalMultiplier.style.color="#facc15";const wt=roundBetWallet==='bonus'?'کیف پول بونوس':'حساب اصلی';modalDesc.innerHTML='مبلغ <b style="color:#4ade80">'+formatMoney(wat)+'</b> به '+wt+' اضافه شد.'+bun;resultModal.classList.add('show')},300)}
 function resetControlsAfterRound(){btnGoTitle.innerText="برو (GO)";btnGoSub.innerText="شروع راند";btnGo.style.flex="1";btnCashout.style.display="none";document.querySelectorAll('.manhole').forEach(m=>m.classList.remove('next-clickable'))}
 function updateCashoutDisplay(){if(!isPlaying||currentStep===0)return;cashoutAmount.innerText=formatMoney(currentBetInToman*currentMultiplier)+' ('+currentMultiplier.toFixed(2)+'x)'}
 function selectDifficulty(d,b){if(isPlaying)return;selectedDiff=d;document.querySelectorAll('.diff-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderRoad()}
@@ -551,6 +652,120 @@ function hideWalletMessage(){const el=document.getElementById('walletMessage');e
 function copyAddress(){navigator.clipboard.writeText(WALLET_ADDRESS).then(()=>showWalletMessage("✅ آدرس TRC20 کپی شد!","success")).catch(()=>prompt("آدرس TRC20:",WALLET_ADDRESS))}
 function registerDeposit(){const ia=prompt(currentCurrency==='toman'?"مبلغ واریز شده (تومان):":"مبلغ واریز شده ($ تتر):");if(!ia)return;const n=parseFloat(ia);if(isNaN(n)||n<=0){alert("مبلغ نامعتبر!");return}const at=currentCurrency==='toman'?n:n*USD_TO_TOMAN;const bi=document.getElementById('bonusCodeInput');const ec=bi?bi.value.trim().toUpperCase():'';let bp=0;if(activeBonusCode&&ec===activeBonusCode.code.toUpperCase())bp=activeBonusCode.pct;const nd={id:'DEP-'+Math.random().toString(36).substr(2,6).toUpperCase(),uid:currentUserId,amount:at,bonusPct:bp,bonusCode:bp>0?ec:null,currency:currentCurrency,status:'pending',time:new Date().toLocaleTimeString('fa-IR')};deposits.push(nd);localStorage.setItem('cr_deposits',JSON.stringify(deposits));showWalletMessage('✅ درخواست واریز '+formatMoney(at)+' با شناسه '+nd.id+' ثبت شد و در صف تأیید ادمین قرار گرفت.',"success")}
 function applyPromoBonus(src='deposit'){let ii=src==='bonus'?'bonusTabCodeInput':'bonusCodeInput';let ci=document.getElementById(ii);if(!ci||!ci.value){ci=document.getElementById('bonusCodeInput')||document.getElementById('bonusTabCodeInput')}const c=ci?ci.value.trim().toUpperCase():'';if(!c){showWalletMessage("کد بونوس وارد کنید.","error");return}if(activeBonusCode&&activeBonusCode.code.toUpperCase()===c){const bp=activeBonusCode.pct;const di=document.getElementById('bonusCodeInput');if(di)di.value=c;const ti=document.getElementById('bonusTabCodeInput');if(ti)ti.value=c;showWalletMessage('🎉 کد '+c+' تایید شد! '+bp+'% بونوس در واریز بعدی.',"success")}else{showWalletMessage("❌ کد نامعتبر است.","error")}}
+async 
+function setCryptoDeposit(usdt) {
+    const input = document.getElementById('depositInput');
+    if (input) {
+        input.value = usdt;
+        updateCryptoDepositPreview();
+    }
+}
+
+function updateCryptoDepositPreview() {
+    const input = document.getElementById('depositInput');
+    const preview = document.getElementById('cryptoDepositEq');
+    if (!input || !preview) return;
+    const usdt = parseFloat(input.value) || 0;
+    const toman = Math.round(usdt * USD_TO_TOMAN);
+    preview.innerHTML = 'معادل تومانی در حساب: <b>' + toman.toLocaleString('en-US') + '</b> تومان (نرخ تتر: ' + USD_TO_TOMAN.toLocaleString('en-US') + ')';
+}
+
+function updateWithdrawEq() {
+    const input = document.getElementById('withdrawInput');
+    const eq = document.getElementById('withdrawEqDisplay');
+    if (!input || !eq) return;
+    const val = parseFloat(input.value) || 0;
+    const toman = Math.round(val * USD_TO_TOMAN);
+    eq.innerHTML = 'معادل: <b>' + toman.toLocaleString('en-US') + '</b> تومان';
+}
+
+async function submitDepositCrypto() {
+    if (checkUserBlocked()) return;
+    const input = document.getElementById('depositInput');
+    const usdt = parseFloat(input.value);
+    if (isNaN(usdt) || usdt <= 0) {
+        showWalletMessage("لطفاً مبلغ معتبر تتر وارد کنید.", "error");
+        return;
+    }
+    const at = Math.round(usdt * USD_TO_TOMAN);
+    const txid = document.getElementById('depositTxidInput')?.value.trim() || '';
+    const bi = document.getElementById('bonusCodeInput');
+    const ec = bi ? bi.value.trim().toUpperCase() : '';
+    let bp = 0;
+    if (activeBonusCode && ec === activeBonusCode.code.toUpperCase()) bp = activeBonusCode.pct;
+
+    const nd = {
+        id: 'DEP-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
+        uid: currentUserId,
+        amount: at,
+        amountUsdt: usdt,
+        txid: txid,
+        bonusPct: bp,
+        bonusCode: bp > 0 ? ec : null,
+        currency: 'usd',
+        status: 'pending',
+        time: new Date().toLocaleTimeString('fa-IR'),
+        date: new Date().toLocaleDateString('fa-IR')
+    };
+    deposits.push(nd);
+    localStorage.setItem('cr_deposits', JSON.stringify(deposits));
+
+    showWalletMessage('✅ درخواست شارژ ' + usdt + ' تتر (' + at.toLocaleString('en-US') + ' تومان) ثبت شد و پس از بررسی ادمین به حسابتان منظور می‌شود.', "success");
+    setTimeout(closeWalletModal, 2000);
+}
+
+function submitWithdrawCrypto() {
+    if (checkUserBlocked()) return;
+    const input = document.getElementById('withdrawInput');
+    const usdt = parseFloat(input.value);
+    if (isNaN(usdt) || usdt <= 0) {
+        showWalletMessage("لطفاً مبلغ معتبر وارد کنید.", "error");
+        return;
+    }
+    const at = Math.round(usdt * USD_TO_TOMAN);
+    const u = users[currentUserId];
+    if (!u || at > (u.bal || 0)) {
+        if (u && !u.bypassWagering && (u.bonusBal || 0) > 0 && at <= ((u.bal || 0) + (u.bonusBal || 0))) {
+            showWalletMessage("❌ موجودی شامل بونوس است! بونوس پس از تکمیل شرط گردش قابل برداشت است.", "error");
+        } else {
+            showWalletMessage("موجودی حساب اصلی کافی نیست! موجودی: " + Math.round(u ? u.bal : 0).toLocaleString('en-US') + " تومان", "error");
+        }
+        return;
+    }
+
+    const addrInput = document.getElementById('withdrawAddressInput');
+    let dest = addrInput ? addrInput.value.trim() : '';
+    if (!dest) {
+        dest = prompt("آدرس کیف پول تتر مقصد (USDT - TRC20 با حرف T شروع می‌شود):", "");
+    }
+    if (!dest || dest.length < 15) {
+        showWalletMessage("لطفاً آدرس ولت تتر TRC20 معتبر وارد کنید.", "error");
+        return;
+    }
+
+    u.bal -= at;
+    localStorage.setItem('cr_users', JSON.stringify(users));
+
+    const nw = {
+        id: 'WTH-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
+        uid: currentUserId,
+        amount: at,
+        amountUsdt: usdt,
+        address: dest,
+        currency: 'usd',
+        status: 'pending',
+        time: new Date().toLocaleTimeString('fa-IR'),
+        date: new Date().toLocaleDateString('fa-IR')
+    };
+    withdraws.push(nw);
+    localStorage.setItem('cr_withdraws', JSON.stringify(withdraws));
+
+    updateBalanceUI();
+    playSound('cashout');
+    showWalletMessage('✅ درخواست برداشت ' + usdt + ' تتر (' + at.toLocaleString('en-US') + ' تومان) ثبت شد.', "success");
+    setTimeout(closeWalletModal, 1800);
+}
+
 async function submitDeposit(){
     if(checkUserBlocked()) return;
     const v = parseFloat(document.getElementById('depositInput').value);
@@ -632,7 +847,20 @@ async function submitWithdraw(){
     setTimeout(closeWalletModal, 1500);
 }
 
-function loadAdminUsers(sf=''){const l=document.getElementById('adminUsersList');const c=document.getElementById('adminUsersCount');if(!l)return;const au=Object.keys(users);if(c)c.innerText=au.length+' کاربر';let f=au;if(sf&&sf.trim()){const q=sf.trim().toLowerCase();f=au.filter(uid=>{const u=users[uid];return uid.toLowerCase().includes(q)||(u.name&&u.name.toLowerCase().includes(q))||(u.username&&u.username.toLowerCase().includes(q))})}if(f.length===0){l.innerHTML='<div style="color:#64748b;font-size:12px;padding:12px;text-align:center">کاربری یافت نشد.</div>';return}l.innerHTML='';f.forEach(uid=>{const u=users[uid];const ib=!!u.isBlocked;const bw=!!u.bypassWagering;const rc=(u.referrals||[]).length;const dc=(u.depReferrals||[]).length;const cd=document.createElement('div');cd.className='user-admin-card';cd.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><div><b style="color:#f8fafc">'+(u.name||'کاربر')+'</b>'+(u.username?'<span style="color:#38bdf8;font-size:11px">@'+u.username+'</span>':'')+'<div style="color:#94a3b8;font-size:10px;direction:ltr;text-align:right">ID: '+uid+'</div></div><div style="display:flex;gap:4px;align-items:center"><span class="user-badge '+(ib?'user-badge-blocked':'user-badge-active')+'">'+(ib?'🚫 مسدود':'✅ فعال')+'</span>'+(bw?'<span class="user-badge user-badge-freebonus">🔓 بدون محدودیت</span>':'')+'</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(0,0,0,.3);padding:6px 8px;border-radius:8px;font-size:11px"><div>💵 نقدی: <b style="color:#4ade80">'+Math.round(u.bal||0).toLocaleString()+' ت</b></div><div>🎁 بونوس: <b style="color:#facc15">'+Math.round(u.bonusBal||0).toLocaleString()+' ت</b></div><div>👥 دعوت: <b style="color:#38bdf8">'+rc+' نفر</b></div><div>💳 واریزکرده: <b style="color:#c084fc">'+dc+' نفر</b></div></div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end"><button class="admin-btn '+(ib?'admin-btn-primary':'admin-btn-danger')+'" style="padding:4px 8px;font-size:11px" onclick="toggleBlockUser(\''+uid+'\')">'+(ib?'✅ رفع مسدودیت':'🚫 مسدود')+'</button><button class="admin-btn" style="padding:4px 8px;font-size:11px;background:'+(bw?'#475569':'#eab308')+';color:'+(bw?'#fff':'#000')+';font-weight:700" onclick="toggleBypassWagering(\''+uid+'\')" title="برداشتن شرط گردش">'+(bw?'🔒 فعال‌سازی شرط':'🔓 حذف محدودیت')+'</button><button class="admin-btn admin-btn-secondary" style="padding:4px 8px;font-size:11px" onclick="giveCustomBonus(\''+uid+'\')">➕ پاداش</button></div>';l.appendChild(cd)})}
+function loadAdminUsers(sf=''){const l=document.getElementById('adminUsersList');const c=document.getElementById('adminUsersCount');if(!l)return;const au=Object.keys(users);if(c)c.innerText=au.length+' کاربر';let f=au;if(sf&&sf.trim()){const q=sf.trim().toLowerCase();f=au.filter(uid=>{const u=users[uid];return uid.toLowerCase().includes(q)||(u.name&&u.name.toLowerCase().includes(q))||(u.username&&u.username.toLowerCase().includes(q))})}if(f.length===0){l.innerHTML='<div style="color:#64748b;font-size:12px;padding:12px;text-align:center">کاربری یافت نشد.</div>';return}l.innerHTML='';f.forEach(uid=>{const u=users[uid];const ib=!!u.isBlocked;const bw=!!u.bypassWagering;const rc=(u.referrals||[]).length;const dc=(u.depReferrals||[]).length;const cd=document.createElement('div');cd.className='user-admin-card';cd.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><div><b style="color:#f8fafc">'+(u.name||'کاربر')+'</b>'+(u.username?'<span style="color:#38bdf8;font-size:11px">@'+u.username+'</span>':'')+'<div style="color:#94a3b8;font-size:10px;direction:ltr;text-align:right">ID: '+uid+'</div></div><div style="display:flex;gap:4px;align-items:center"><span class="user-badge '+(ib?'user-badge-blocked':'user-badge-active')+'">'+(ib?'🚫 مسدود':'✅ فعال')+'</span>'+(bw?'<span class="user-badge user-badge-freebonus">🔓 بدون محدودیت</span>':'')+'</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(0,0,0,.3);padding:6px 8px;border-radius:8px;font-size:11px"><div>💵 نقدی: <b style="color:#4ade80">'+Math.round(u.bal||0).toLocaleString()+' ت</b></div><div>🎁 بونوس: <b style="color:#facc15">'+Math.round(u.bonusBal||0).toLocaleString()+' ت</b></div><div>👥 دعوت: <b style="color:#38bdf8">'+rc+' نفر</b></div><div>💳 واریزکرده: <b style="color:#c084fc">'+dc+' نفر</b></div></div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end"><button class="admin-btn '+(ib?'admin-btn-primary':'admin-btn-danger')+'" style="padding:4px 8px;font-size:11px" onclick="toggleBlockUser(\''+uid+'\')">'+(ib?'✅ رفع مسدودیت':'🚫 مسدود')+'</button><button class="admin-btn" style="padding:4px 8px;font-size:11px;background:'+(bw?'#475569':'#eab308')+';color:'+(bw?'#fff':'#000')+';font-weight:700" onclick="toggleBypassWagering(\''+uid+'\')" title="برداشتن شرط گردش">'+(bw?'🔒 فعال‌سازی شرط':'🔓 حذف محدودیت')+'</button><button class="admin-btn admin-btn-secondary" style="padding:4px 8px;font-size:11px" onclick="giveCustomBonus(\''+uid+'\')">➕ پاداش</button><button class="admin-btn admin-btn-danger" style="padding:4px 8px;font-size:11px" onclick="deleteUser(\''+uid+'\')">🗑️ حذف</button></div>';l.appendChild(cd)})}
+
+function deleteUser(uid) {
+    if (!users[uid]) return;
+    const u = users[uid];
+    const name = u.name || uid;
+    if (!confirm('آیا از حذف کامل کاربر "' + name + '" (' + uid + ') اطمینان دارید؟ تمام سوابق و موجودی این کاربر پاک خواهد شد.')) return;
+    delete users[uid];
+    localStorage.setItem('cr_users', JSON.stringify(users));
+    alert('کاربر ' + name + ' با موفقیت حذف شد.');
+    filterAdminUsers();
+    loadAdminStats();
+}
+
 function filterAdminUsers(){loadAdminUsers(document.getElementById('adminUserSearchInput')?.value||'')}
 function toggleBlockUser(uid){if(!users[uid])return;users[uid].isBlocked=!users[uid].isBlocked;localStorage.setItem('cr_users',JSON.stringify(users));alert(users[uid].isBlocked?'کاربر '+uid+' مسدود شد.':'مسدودیت '+uid+' برداشته شد.');filterAdminUsers();if(uid===currentUserId)checkUserBlocked()}
 function toggleBypassWagering(uid){if(!users[uid])return;users[uid].bypassWagering=!users[uid].bypassWagering;if(users[uid].bypassWagering){const bm=users[uid].bonusBal||0;users[uid].bal=(users[uid].bal||0)+bm;users[uid].bonusBal=0;users[uid].bonusWagerTarget=0;users[uid].bonusWagerProgress=0;alert('شرایط حذف شد!\n'+Math.round(bm).toLocaleString()+' تومان به حساب اصلی منتقل شد.')}else{alert("شرایط استاندارد (2x) مجدداً فعال شد.")}localStorage.setItem('cr_users',JSON.stringify(users));filterAdminUsers();if(uid===currentUserId)updateBalanceUI()}
@@ -779,8 +1007,9 @@ window.siteEngine={get balance(){return siteBalance},set balance(v){siteBalance=
 
 
 // --- مدیریت برداشت‌ها و حسابداری سود سایت ---
-let withdraws = JSON.parse(localStorage.getItem('cr_withdraws') || '[]');
-let houseStats = JSON.parse(localStorage.getItem('cr_house_stats') || JSON.stringify({
+// withdraws already declared at top
+withdraws = JSON.parse(localStorage.getItem('cr_withdraws') || '[]');
+houseStats = JSON.parse(localStorage.getItem('cr_house_stats') || JSON.stringify({
     totalPlayerLosses: 0,
     totalPlayerWinsProfit: 0,
     totalDepositsApproved: 0,
@@ -806,8 +1035,9 @@ function updateVaultFromAdmin() {
         siteBalance = usdVal * USD_TO_TOMAN;
         localStorage.setItem('cr_site_bal', siteBalance.toString());
         loadAdminStats();
-        // بررسی مجدد دفاعی
-        const potentialMax = currentBetToman * (Math.pow(MULTIPLIERS[difficulty][MULTIPLIERS[difficulty].length-1], 1) || 10);
+        // ارزیابی حالت دفاعی بر اساس سقف ریسک ۲۵٪ صندوق
+        const maxStepMult = MULTIPLIERS[difficulty] ? MULTIPLIERS[difficulty][MULTIPLIERS[difficulty].length - 1] : 10;
+        const potentialMax = (currentBetInToman || 10000) * maxStepMult;
         defenseModeActive = (potentialMax > (siteBalance * 0.25));
     }
 }
@@ -828,8 +1058,9 @@ function loadAdminStats() {
     }
 
     const netProfit = (houseStats.totalPlayerLosses || 0) - (houseStats.totalPlayerWinsProfit || 0);
+    const netProfitUsd = (netProfit / USD_TO_TOMAN).toFixed(2);
     if (profitEl) {
-        profitEl.innerText = (netProfit >= 0 ? '+' : '') + Math.round(netProfit).toLocaleString('en-US') + ' تومان';
+        profitEl.innerHTML = (netProfit >= 0 ? '+' : '') + Math.round(netProfit).toLocaleString('en-US') + ' تومان <br><span style="font-size:11px;opacity:0.85">(' + (netProfit >= 0 ? '+' : '') + netProfitUsd + ' $)</span>';
         profitEl.style.color = netProfit >= 0 ? '#22c55e' : '#f43f5e';
     }
 
